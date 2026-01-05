@@ -5,8 +5,6 @@ export default antfu({
   type: 'app',
   typescript: true,
   vue: true,
-  jsonc: false,
-  yaml: false,
   unocss: true,
   formatters: {
     css: true,
@@ -27,28 +25,6 @@ export default antfu({
     // 配置 import-x/order 规则
     'import-x/order': [
       'error',
-      {
-        // 配置vue必须要在导入element-plus之前，否则会报错
-        pathGroupsExcludedImportTypes: ['vue'],
-        pathGroups: [
-          {
-            pattern: 'vue',
-            group: 'external',
-            position: 'before',
-          },
-          {
-            pattern: '@/**',
-            group: 'internal',
-            position: 'after',
-          },
-        ],
-        groups: [
-          ['type'],
-          ['builtin', 'external'],
-          'internal',
-          ['parent', 'sibling', 'index'],
-        ],
-      },
     ],
   },
 })
