@@ -8,8 +8,7 @@ import {
   transformerVariantGroup,
 } from 'unocss'
 import { themeVars } from './src/theme/vars'
-
-const ICONS_ASSETS = './src/assets/icons'
+import { ICONS_ASSETS } from './src/const/icons'
 
 export default defineConfig({
   shortcuts: {
@@ -27,6 +26,7 @@ export default defineConfig({
     'fixed-lt': 'fixed left-0 top-0',
     'fixed-rt': 'fixed right-0 top-0 ',
     'fixed-full': 'fixed right-0 top-0 left-0 bottom-0',
+    'fixed-center': 'fixed left-0 top-0 wh-full flex-center',
     'nprogress-primary': 'important-bg-primary',
   },
   theme: {
