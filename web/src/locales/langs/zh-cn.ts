@@ -73,7 +73,7 @@ const local: App.I18n.Schema = {
         auto: '跟随系统',
       },
       grayscale: '灰色模式',
-      colourWeakness: '色弱模式',
+      colorWeakness: '色弱模式',
       themeColor: {
         title: '主题颜色',
         primary: '主色',

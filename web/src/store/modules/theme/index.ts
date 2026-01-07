@@ -13,7 +13,7 @@ import {
   toggleCssDarkMode,
 } from './shared'
 import { localStg } from '@/utils/storage'
-import { SetupStoreId } from '@/const/app'
+import { SetupStoreId } from '@/const'
 
 /** Theme store */
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
@@ -41,8 +41,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   /** grayscale mode */
   const grayscaleMode = computed(() => settings.value.grayscale)
 
-  /** colourWeakness mode */
-  const colourWeaknessMode = computed(() => settings.value.colourWeakness)
+  /** colorWeakness mode */
+  const colourWeaknessMode = computed(() => settings.value.colorWeakness)
 
   /** Theme colors */
   const themeColors = computed(() => {
@@ -113,12 +113,12 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   }
 
   /**
-   * Set colourWeakness value
+   * Set colorWeakness value
    *
-   * @param isColourWeakness
+   * @param isColorWeakness
    */
-  function setColourWeakness(isColourWeakness: boolean) {
-    settings.value.colourWeakness = isColourWeakness
+  function setColorWeakness(isColorWeakness: boolean) {
+    settings.value.colorWeakness = isColorWeakness
   }
 
   /** Toggle theme scheme */
@@ -131,7 +131,7 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
 
     const nextThemeScheme = themeSchemes[nextIndex]
 
-    setThemeScheme(nextThemeScheme)
+    setThemeScheme(nextThemeScheme!)
   }
 
   /**
@@ -155,15 +155,6 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     else {
       settings.value.otherColor[key] = colorValue
     }
-  }
-
-  /**
-   * Set theme layout
-   *
-   * @param mode Theme layout mode
-   */
-  function setThemeLayout(mode: UnionKey.ThemeLayoutMode) {
-    settings.value.layout.mode = mode
   }
 
   /** Setup theme vars to global */
@@ -292,12 +283,11 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
     settingsJson,
     watermarkContent,
     setGrayscale,
-    setColourWeakness,
+    setColorWeakness,
     resetStore,
     setThemeScheme,
     toggleThemeScheme,
     updateThemeColors,
-    setThemeLayout,
     setWatermarkEnableUserName,
     setWatermarkEnableTime,
     setNaiveThemeOverrides,

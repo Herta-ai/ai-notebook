@@ -1,6 +1,5 @@
 import { useRouter } from 'vue-router'
 import type { RouteLocationRaw } from 'vue-router'
-import type { RouteKey } from '@elegant-router/types'
 import { router as globalRouter } from '@/router'
 
 /**
@@ -18,7 +17,7 @@ export function useRouterPush(inSetup = true) {
 
   const routerBack = router.back
 
-  async function routerPushByKey(key: RouteKey, options?: App.Global.RouterPushOptions) {
+  async function routerPushByKey(key: Route.RouteKey, options?: App.Global.RouterPushOptions) {
     const { query, params } = options || {}
 
     const routeLocation: RouteLocationRaw = {
@@ -36,7 +35,7 @@ export function useRouterPush(inSetup = true) {
     return routerPush(routeLocation)
   }
 
-  function routerPushByKeyWithMetaQuery(key: RouteKey) {
+  function routerPushByKeyWithMetaQuery(key: Route.RouteKey) {
     const allRoutes = router.getRoutes()
     const meta = allRoutes.find(item => item.name === key)?.meta || null
 

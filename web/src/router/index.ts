@@ -25,6 +25,7 @@ export const router = createRouter({
 
 /** Setup Vue Router */
 export async function setupRouter(app: App) {
+  routes.forEach(route => router.addRoute(route));
   app.use(router)
   createRouterGuard(router)
   await router.isReady()

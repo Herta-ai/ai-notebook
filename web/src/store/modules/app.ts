@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, watch } from 'vue'
 import { useTitle } from '@vueuse/core'
-import { SetupStoreId } from '@/const/app'
+import { SetupStoreId } from '@/const'
 import { $t, setLocale } from '@/locales'
 import { setDayjsLocale } from '@/locales/dayjs'
 import { router } from '@/router'

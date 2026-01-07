@@ -2,26 +2,24 @@ import { computed, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { defineStore } from 'pinia'
 import { useLoading } from '@sa/hooks'
-import { useRouteStore } from '../route'
 import { useTabStore } from '../tab'
 import { clearAuthStorage, getToken } from './shared'
-import { fetchGetUserInfo, fetchLogin } from '@/service/api'
+import { fetchGetUserInfo, fetchLogin } from '@/api'
 import { useRouterPush } from '@/hooks/common/router'
 import { localStg } from '@/utils/storage'
-import { SetupStoreId } from '@/const/app'
+import { SetupStoreId } from '@/const'
 import { $t } from '@/locales'
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute()
   const authStore = useAuthStore()
-  const routeStore = useRouteStore()
   const tabStore = useTabStore()
   const { toLogin, redirectFromLogin } = useRouterPush(false)
   const { loading: loginLoading, startLoading, endLoading } = useLoading()
 
   const token = ref(getToken())
 
-  const userInfo: Api.Auth.UserInfo = reactive({
+  const userInfo: Api.User.UserInfo = reactive({
     userId: '',
     userName: '',
     roles: [],
@@ -30,9 +28,9 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
   /** is super role in static route */
   const isStaticSuper = computed(() => {
-    const { VITE_AUTH_ROUTE_MODE, VITE_STATIC_SUPER_ROLE } = import.meta.env
+    const { VITE_STATIC_SUPER_ROLE } = import.meta.env
 
-    return VITE_AUTH_ROUTE_MODE === 'static' && userInfo.roles.includes(VITE_STATIC_SUPER_ROLE)
+    return userInfo.roles.includes(VITE_STATIC_SUPER_ROLE)
   })
 
   /** Is login */
@@ -51,7 +49,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     }
 
     tabStore.cacheTabs()
-    routeStore.resetStore()
   }
 
   /** Record the user ID of the previous login session Used to compare with the current user ID on next login */
@@ -129,7 +126,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     endLoading()
   }
 
-  async function loginByToken(loginToken: Api.Auth.LoginToken) {
+  async function loginByToken(loginToken: Api.User.LoginToken) {
     // 1. stored in the localStorage, the later requests need it in headers
     localStg.set('token', loginToken.token)
     localStg.set('refreshToken', loginToken.refreshToken)

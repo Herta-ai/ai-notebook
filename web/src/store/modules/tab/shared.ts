@@ -1,7 +1,6 @@
 import type { Router } from 'vue-router'
-import type { LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types'
 import { $t } from '@/locales'
-import { getRoutePath } from '@/router/elegant/transform'
+import { routeMap } from '@/router/routes'
 
 /**
  * Get all tabs
@@ -62,7 +61,11 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
 export function getTabByRoute(route: App.Global.TabRoute) {
   const { name, path, fullPath = path, meta } = route
 
-  const { title, i18nKey, fixedIndexInTab } = meta
+  const { title, i18nKey, fixedIndexInTab } = meta as {
+    title: string
+    i18nKey: App.I18n.I18nKey
+    fixedIndexInTab?: number
+  }
 
   // Get icon and localIcon from getRouteIcons function
   const { icon, localIcon } = getRouteIcons(route)
@@ -72,8 +75,8 @@ export function getTabByRoute(route: App.Global.TabRoute) {
   const tab: App.Global.Tab = {
     id: getTabIdByRoute(route),
     label,
-    routeKey: name as LastLevelRouteKey,
-    routePath: path as RouteMap[LastLevelRouteKey],
+    routeKey: name as Route.LastLevelRouteKey,
+    routePath: path as Route.RouteMap[Route.LastLevelRouteKey],
     fullPath,
     fixedIndex: fixedIndexInTab,
     icon,
@@ -92,46 +95,19 @@ export function getTabByRoute(route: App.Global.TabRoute) {
  */
 export function getRouteIcons(route: App.Global.TabRoute) {
   // Set default value for icon at the beginning
-  let icon: string = route?.meta?.icon || import.meta.env.VITE_MENU_ICON
-  let localIcon: string | undefined = route?.meta?.localIcon
+  let icon: string = route?.meta?.icon as string || import.meta.env.VITE_MENU_ICON
+  let localIcon: string | undefined = route?.meta?.localIcon as string | undefined
 
   // Route.matched only appears when there are multiple matches,so check if route.matched exists
   if (route.matched) {
     // Find the meta of the current route from matched
     const currentRoute = route.matched.find(r => r.name === route.name)
     // If icon exists in currentRoute.meta, it will overwrite the default value
-    icon = currentRoute?.meta?.icon || icon
-    localIcon = currentRoute?.meta?.localIcon
+    icon = currentRoute?.meta?.icon as string || icon
+    localIcon = currentRoute?.meta?.localIcon as string | undefined
   }
 
   return { icon, localIcon }
-}
-
-/**
- * Get default home tab
- *
- * @param router
- * @param homeRouteName routeHome in useRouteStore
- */
-export function getDefaultHomeTab(router: Router, homeRouteName: LastLevelRouteKey) {
-  const homeRoutePath = getRoutePath(homeRouteName)
-  const i18nLabel = $t(`route.${homeRouteName}`)
-
-  let homeTab: App.Global.Tab = {
-    id: getRoutePath(homeRouteName),
-    label: i18nLabel || homeRouteName,
-    routeKey: homeRouteName,
-    routePath: homeRoutePath,
-    fullPath: homeRoutePath,
-  }
-
-  const routes = router.getRoutes()
-  const homeRoute = routes.find(route => route.name === homeRouteName)
-  if (homeRoute) {
-    homeTab = getTabByRoute(homeRoute)
-  }
-
-  return homeTab
 }
 
 /**
@@ -253,8 +229,8 @@ export function updateTabsByI18nKey(tabs: App.Global.Tab[]) {
  * @param name
  * @param tabs
  */
-export function findTabByRouteName(name: RouteKey, tabs: App.Global.Tab[]) {
-  const routePath = getRoutePath(name)
+export function findTabByRouteName(name: Route.RouteKey, tabs: App.Global.Tab[]) {
+  const routePath = routeMap[name]
 
   const tabId = routePath
   const multiTabId = `${routePath}?`

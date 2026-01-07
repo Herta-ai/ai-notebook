@@ -73,7 +73,7 @@ const local: App.I18n.Schema = {
         auto: 'Follow System',
       },
       grayscale: 'Grayscale',
-      colourWeakness: 'Colour Weakness',
+      colorWeakness: 'Color Weakness',
       themeColor: {
         title: 'Theme Color',
         primary: 'Primary',

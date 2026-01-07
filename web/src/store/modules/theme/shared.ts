@@ -1,7 +1,7 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import { defu } from 'defu'
 import { addColorAlpha, getColorPalette, getPaletteColorByNumber, getRgb } from '@sa/color'
-import { DARK_CLASS } from '@/constants/app'
+import { DARK_CLASS } from '@/const'
 import { toggleHtmlClass } from '@/utils/common'
 import { localStg } from '@/utils/storage'
 import { overrideThemeSettings, themeSettings } from '@/theme/settings'
@@ -49,7 +49,7 @@ export function createThemeToken(
 
   const { light, dark } = tokens || themeSettings.tokens
 
-  const themeTokens: App.Theme.ThemeTokenCSSVars = {
+  const themeTokens: App.Theme.BaseToken = {
     colors: {
       ...paletteColors,
       nprogress: paletteColors.primary,
@@ -60,7 +60,7 @@ export function createThemeToken(
     },
   }
 
-  const darkThemeTokens: App.Theme.ThemeTokenCSSVars = {
+  const darkThemeTokens: App.Theme.BaseToken = {
     colors: {
       ...themeTokens.colors,
       ...dark?.colors,
@@ -188,11 +188,11 @@ export function toggleCssDarkMode(darkMode = false) {
  * Toggle auxiliary color modes
  *
  * @param grayscaleMode
- * @param colourWeakness
+ * @param colorWeakness
  */
-export function toggleAuxiliaryColorModes(grayscaleMode = false, colourWeakness = false) {
+export function toggleAuxiliaryColorModes(grayscaleMode = false, colorWeakness = false) {
   const htmlElement = document.documentElement
-  htmlElement.style.filter = [grayscaleMode ? 'grayscale(100%)' : '', colourWeakness ? 'invert(80%)' : '']
+  htmlElement.style.filter = [grayscaleMode ? 'grayscale(100%)' : '', colorWeakness ? 'invert(80%)' : '']
     .filter(Boolean)
     .join(' ')
 }
