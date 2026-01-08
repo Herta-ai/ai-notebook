@@ -1,8 +1,9 @@
-const local: App.I18n.Schema = {
+const local: I18n.Schema = {
   system: {
     title: 'AI Notebook',
     updateTitle: 'System Version Update Notification',
-    updateContent: 'A new version of the system has been detected. Do you want to refresh the page immediately?',
+    updateContent:
+      'A new version of the system has been detected. Do you want to refresh the page immediately?',
     updateConfirm: 'Refresh immediately',
     updateCancel: 'Later',
   },
@@ -111,25 +112,6 @@ const local: App.I18n.Schema = {
       },
     },
     layout: {
-      layoutMode: {
-        'title': 'Layout Mode',
-        'vertical': 'Vertical Mode',
-        'horizontal': 'Horizontal Mode',
-        'vertical-mix': 'Vertical Mix Mode',
-        'vertical-hybrid-header-first': 'Left Hybrid Header-First',
-        'top-hybrid-sidebar-first': 'Top-Hybrid Sidebar-First',
-        'top-hybrid-header-first': 'Top-Hybrid Header-First',
-        'vertical_detail': 'Vertical menu layout, with the menu on the left and content on the right.',
-        'vertical-mix_detail':
-          'Vertical mix-menu layout, with the primary menu on the dark left side and the secondary menu on the lighter left side.',
-        'vertical-hybrid-header-first_detail':
-          'Left hybrid layout, with the primary menu at the top, the secondary menu on the dark left side, and the tertiary menu on the lighter left side.',
-        'horizontal_detail': 'Horizontal menu layout, with the menu at the top and content below.',
-        'top-hybrid-sidebar-first_detail':
-          'Top hybrid layout, with the primary menu on the left and the secondary menu at the top.',
-        'top-hybrid-header-first_detail':
-          'Top hybrid layout, with the primary menu at the top and the secondary menu on the left.',
-      },
       tab: {
         title: 'Tab Settings',
         visible: 'Tab Visible',
@@ -143,7 +125,8 @@ const local: App.I18n.Schema = {
           button: 'Button',
         },
         closeByMiddleClick: 'Close Tab by Middle Click',
-        closeByMiddleClickTip: 'Enable closing tabs by clicking with the middle mouse button',
+        closeByMiddleClickTip:
+          'Enable closing tabs by clicking with the middle mouse button',
       },
       header: {
         title: 'Header Settings',
@@ -217,52 +200,61 @@ const local: App.I18n.Schema = {
     },
     configOperation: {
       copyConfig: 'Copy Config',
-      copySuccessMsg: 'Copy Success, Please replace the variable "themeSettings" in "src/theme/settings.ts"',
+      copySuccessMsg:
+        'Copy Success, Please replace the variable "themeSettings" in "src/theme/settings.ts"',
       resetConfig: 'Reset Config',
       resetSuccessMsg: 'Reset Success',
     },
   },
   route: {
-    'login': 'Login',
-    '403': 'No Permission',
-    '404': 'Page Not Found',
-    '500': 'Server Error',
-    'iframe-page': 'Iframe',
-    'home': 'Home',
+    login: 'Login',
+    403: 'No Permission',
+    404: 'Page Not Found',
+    home: 'Home',
+    setting: 'Setting',
+    space: 'Space',
   },
   page: {
     login: {
+      form: {
+        required: 'Cannot be empty',
+        username: {
+          required: 'Please enter user name',
+          invalid: 'User name format is incorrect',
+        },
+        password: {
+          required: 'Please enter password',
+          invalid:
+            '6-18 characters, including letters, numbers, and underscores',
+        },
+        confirmPassword: {
+          required: 'Please enter password again',
+          invalid: 'The two passwords are inconsistent',
+        },
+        code: {
+          required: 'Please enter verification code',
+          invalid: 'Verification code format is incorrect',
+        },
+        email: {
+          required: 'Please enter email',
+          invalid: 'Email format is incorrect',
+        },
+      },
       common: {
         loginOrRegister: 'Login / Register',
-        userNamePlaceholder: 'Please enter user name',
-        phonePlaceholder: 'Please enter phone number',
-        codePlaceholder: 'Please enter verification code',
+        usernamePlaceholder: 'Please enter user name',
         passwordPlaceholder: 'Please enter password',
         confirmPasswordPlaceholder: 'Please enter password again',
-        codeLogin: 'Verification code login',
         confirm: 'Confirm',
-        back: 'Back',
         validateSuccess: 'Verification passed',
         loginSuccess: 'Login successfully',
-        welcomeBack: 'Welcome back, {userName} !',
+        welcomeBack: 'Welcome back, {username} !',
       },
-      pwdLogin: {
-        title: 'Password Login',
+      login: {
+        title: 'Login',
         rememberMe: 'Remember me',
         forgetPassword: 'Forget password?',
         register: 'Register',
-        otherAccountLogin: 'Other Account Login',
-        otherLoginMode: 'Other Login Mode',
-        superAdmin: 'Super Admin',
-        admin: 'Admin',
-        user: 'User',
-      },
-      codeLogin: {
-        title: 'Verification Code Login',
-        getCode: 'Get verification code',
-        reGetCode: 'Reacquire after {time}s',
-        sendCodeSuccess: 'Verification code sent successfully',
-        imageCodePlaceholder: 'Please enter image verification code',
       },
       register: {
         title: 'Register',
@@ -270,17 +262,12 @@ const local: App.I18n.Schema = {
         protocol: '《User Agreement》',
         policy: '《Privacy Policy》',
       },
-      resetPwd: {
-        title: 'Reset Password',
-      },
-      bindWeChat: {
-        title: 'Bind WeChat',
-      },
     },
     home: {
       branchDesc:
         'For the convenience of everyone in developing and updating the merge, we have streamlined the code of the main branch, only retaining the homepage menu, and the rest of the content has been moved to the example branch for maintenance. The preview address displays the content of the example branch.',
-      greeting: 'Good morning, {userName}, today is another day full of vitality!',
+      greeting:
+        'Good morning, {username}, today is another day full of vitality!',
       weatherDesc: 'Today is cloudy to clear, 20℃ - 25℃!',
       projectCount: 'Project Count',
       todo: 'Todo',
@@ -298,40 +285,18 @@ const local: App.I18n.Schema = {
       projectNews: {
         title: 'Project News',
         moreNews: 'More News',
-        desc1: 'Soybean created the open source project soybean-admin on May 28, 2021!',
-        desc2: 'Yanbowe submitted a bug to soybean-admin, the multi-tab bar will not adapt.',
-        desc3: 'Soybean is ready to do sufficient preparation for the release of soybean-admin!',
-        desc4: 'Soybean is busy writing project documentation for soybean-admin!',
-        desc5: 'Soybean just wrote some of the workbench pages casually, and it was enough to see!',
+        desc1:
+          'Soybean created the open source project soybean-admin on May 28, 2021!',
+        desc2:
+          'Yanbowe submitted a bug to soybean-admin, the multi-tab bar will not adapt.',
+        desc3:
+          'Soybean is ready to do sufficient preparation for the release of soybean-admin!',
+        desc4:
+          'Soybean is busy writing project documentation for soybean-admin!',
+        desc5:
+          'Soybean just wrote some of the workbench pages casually, and it was enough to see!',
       },
       creativity: 'Creativity',
-    },
-  },
-  form: {
-    required: 'Cannot be empty',
-    userName: {
-      required: 'Please enter user name',
-      invalid: 'User name format is incorrect',
-    },
-    phone: {
-      required: 'Please enter phone number',
-      invalid: 'Phone number format is incorrect',
-    },
-    pwd: {
-      required: 'Please enter password',
-      invalid: '6-18 characters, including letters, numbers, and underscores',
-    },
-    confirmPwd: {
-      required: 'Please enter password again',
-      invalid: 'The two passwords are inconsistent',
-    },
-    code: {
-      required: 'Please enter verification code',
-      invalid: 'Verification code format is incorrect',
-    },
-    email: {
-      required: 'Please enter email',
-      invalid: 'Email format is incorrect',
     },
   },
   dropdown: {

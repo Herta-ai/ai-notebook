@@ -33,7 +33,7 @@ declare namespace Api {
 
     interface UserInfo {
       userId: string
-      userName: string
+      username: string
       roles: string[]
       buttons: string[]
     }

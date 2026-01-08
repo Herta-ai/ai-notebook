@@ -30,7 +30,7 @@ export function transformRecordToOption<T extends Record<string, string>>(record
  *
  * @param options
  */
-export function translateOptions(options: CommonType.Option<string, App.I18n.I18nKey>[]) {
+export function translateOptions(options: CommonType.Option<string, I18n.I18nKey>[]) {
   return options.map(option => ({
     ...option,
     label: $t(option.label),

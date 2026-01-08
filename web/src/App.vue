@@ -55,6 +55,10 @@ const watermarkProps = computed<WatermarkProps>(() => {
   </NConfigProvider>
 </template>
 
-<style scoped>
-
+<style>
+html,
+body,
+#app {
+  height: 100%;
+}
 </style>

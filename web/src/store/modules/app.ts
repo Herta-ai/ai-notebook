@@ -7,8 +7,8 @@ import { setDayjsLocale } from '@/locales/dayjs'
 import { router } from '@/router'
 
 export const useAppStore = defineStore(SetupStoreId.App, () => {
-  const locale = ref<App.I18n.LangType>('zh-CN')
-  const localeOptions: App.I18n.LangOption[] = [
+  const locale = ref<I18n.LangType>('zh-CN')
+  const localeOptions: I18n.LangOption[] = [
     {
       label: '中文',
       key: 'zh-CN',
@@ -18,7 +18,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
       key: 'en-US',
     },
   ]
-  function changeLocale(lang: App.I18n.LangType) {
+  function changeLocale(lang: I18n.LangType) {
     locale.value = lang
     setLocale(lang)
   }

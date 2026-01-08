@@ -47,6 +47,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       i18nKey: 'route.login',
       title: 'Login',
+      constant: true,
     },
   },
   {

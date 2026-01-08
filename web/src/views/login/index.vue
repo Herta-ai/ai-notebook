@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { computed, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useThemeStore } from '@/store/modules/theme'
-import { setLocale } from '@/locales'
+import { useAppStore } from '@/store/modules/app'
+import { useNaiveForm } from '@/hooks/common/form'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const themeStore = useThemeStore()
+const appStore = useAppStore()
 
 const activeTab = ref<'login' | 'register'>('login')
+
+const { formRef: loginFormRef, validate: validateLogin } = useNaiveForm()
+const { formRef: registerFormRef, validate: validateRegister } = useNaiveForm()
 
 const loginModel = reactive({
   username: '',
@@ -23,12 +28,12 @@ const registerModel = reactive({
 const loginRules = {
   username: {
     required: true,
-    message: () => t('login.usernameRequired'),
+    message: () => t('page.login.form.username.required'),
     trigger: 'blur',
   },
   password: {
     required: true,
-    message: () => t('login.passwordRequired'),
+    message: () => t('page.login.form.password.required'),
     trigger: 'blur',
   },
 }
@@ -36,77 +41,85 @@ const loginRules = {
 const registerRules = {
   username: {
     required: true,
-    message: () => t('login.usernameRequired'),
+    message: () => t('page.login.form.username.required'),
     trigger: 'blur',
   },
   password: {
     required: true,
-    message: () => t('login.passwordRequired'),
+    message: () => t('page.login.form.password.required'),
     trigger: 'blur',
   },
   confirmPassword: {
     required: true,
-    message: () => t('login.confirmPasswordRequired'),
     trigger: 'blur',
     validator: (rule: any, value: string) => {
       if (!value) {
-        return new Error(t('login.confirmPasswordRequired'))
+        return new Error(t('page.login.form.confirmPassword.required'))
       }
       if (value !== registerModel.password) {
-        return new Error(t('login.passwordMismatch'))
+        return new Error(t('page.login.form.confirmPassword.invalid'))
       }
       return true
     },
   },
 }
 
-function handleLogin() {
+async function handleLogin() {
   // TODO: Implement login logic
-  console.log('Login clicked', loginModel)
+  try {
+    await validateLogin()
+    // TODO: Implement login logic
+  }
+  catch {}
 }
 
-function handleRegister() {
+async function handleRegister() {
   // TODO: Implement register logic
-  console.log('Register clicked', registerModel)
+  try {
+    await validateRegister()
+    // TODO: Implement register logic
+  }
+  catch {}
 }
 
 function toggleTheme() {
   themeStore.toggleThemeScheme()
 }
-
-function toggleLanguage() {
-  const nextLocale = locale.value === 'zh-CN' ? 'en-US' : 'zh-CN'
-  setLocale(nextLocale)
-}
 </script>
 
 <template>
-  <div class="wh-full flex-center bg-layout relative overflow-hidden">
+  <div class="relative wh-full flex-col-center overflow-hidden bg-layout">
     <!-- Top Right Actions -->
-    <div class="absolute top-4 right-4 flex gap-2">
+    <div class="absolute right-4 top-4 flex gap-2">
       <n-tooltip trigger="hover">
         <template #trigger>
           <n-button circle quaternary @click="toggleTheme">
             <template #icon>
-              <div :class="themeStore.darkMode ? 'i-carbon-moon' : 'i-carbon-sun'" />
+              <div v-if="themeStore.themeScheme === 'light'" class="i-carbon-sun" />
+              <div v-else-if="themeStore.themeScheme === 'dark'" class="i-carbon-moon" />
+              <div v-else class="i-carbon-laptop" />
             </template>
           </n-button>
         </template>
-        {{ themeStore.darkMode ? t('theme.appearance.themeSchema.dark') : t('theme.appearance.themeSchema.light') }}
+        {{ t(`theme.appearance.themeSchema.${themeStore.themeScheme}`) }}
       </n-tooltip>
-      <n-tooltip trigger="hover">
-        <template #trigger>
-          <n-button circle quaternary @click="toggleLanguage">
-            <template #icon>
-              <div class="i-carbon-language" />
-            </template>
-          </n-button>
-        </template>
-        {{ locale === 'zh-CN' ? 'English' : '中文' }}
-      </n-tooltip>
+      <n-dropdown
+        :options="appStore.localeOptions"
+        trigger="hover"
+        @select="appStore.changeLocale"
+      >
+        <n-button circle quaternary>
+          <template #icon>
+            <div class="i-carbon-language" />
+          </template>
+        </n-button>
+      </n-dropdown>
     </div>
-
-    <n-card class="w-full max-w-md shadow-lg" content-style="padding: 0;">
+    <!-- Title -->
+    <h1 class="text-center font-bold">
+      {{ t('system.title') }}
+    </h1>
+    <n-card class="max-w-md w-full shadow-lg" content-style="padding: 0;">
       <n-tabs
         v-model:value="activeTab"
         size="large"
@@ -114,13 +127,10 @@ function toggleLanguage() {
         type="segment"
         class="w-full"
       >
-        <n-tab-pane name="login" :tab="t('login.title')">
+        <n-tab-pane name="login" :tab="t('page.login.login.title')">
           <div class="p-6 pt-2">
-            <div class="mb-8 text-center">
-              <h2 class="text-2xl font-bold text-primary">{{ t('login.welcomeBack') }}</h2>
-            </div>
             <n-form
-              ref="loginFormRef"
+              :ref="loginFormRef"
               :model="loginModel"
               :rules="loginRules"
               label-placement="left"
@@ -129,7 +139,7 @@ function toggleLanguage() {
               <n-form-item path="username">
                 <n-input
                   v-model:value="loginModel.username"
-                  :placeholder="t('login.usernamePlaceholder')"
+                  :placeholder="t('page.login.common.usernamePlaceholder')"
                 >
                   <template #prefix>
                     <div class="i-carbon-user" />
@@ -141,7 +151,7 @@ function toggleLanguage() {
                   v-model:value="loginModel.password"
                   type="password"
                   show-password-on="click"
-                  :placeholder="t('login.passwordPlaceholder')"
+                  :placeholder="t('page.login.common.passwordPlaceholder')"
                   @keyup.enter="handleLogin"
                 >
                   <template #prefix>
@@ -150,19 +160,16 @@ function toggleLanguage() {
                 </n-input>
               </n-form-item>
               <n-button type="primary" block size="large" @click="handleLogin">
-                {{ t('login.loginBtn') }}
+                {{ t('page.login.common.confirm') }}
               </n-button>
             </n-form>
           </div>
         </n-tab-pane>
 
-        <n-tab-pane name="register" :tab="t('login.register')">
+        <n-tab-pane name="register" :tab="t('page.login.register.title')">
           <div class="p-6 pt-2">
-             <div class="mb-8 text-center">
-              <h2 class="text-2xl font-bold text-primary">{{ t('login.createAccount') }}</h2>
-            </div>
             <n-form
-              ref="registerFormRef"
+              :ref="registerFormRef"
               :model="registerModel"
               :rules="registerRules"
               label-placement="left"
@@ -171,7 +178,7 @@ function toggleLanguage() {
               <n-form-item path="username">
                 <n-input
                   v-model:value="registerModel.username"
-                  :placeholder="t('login.usernamePlaceholder')"
+                  :placeholder="t('page.login.common.usernamePlaceholder')"
                 >
                   <template #prefix>
                     <div class="i-carbon-user" />
@@ -183,7 +190,7 @@ function toggleLanguage() {
                   v-model:value="registerModel.password"
                   type="password"
                   show-password-on="click"
-                  :placeholder="t('login.passwordPlaceholder')"
+                  :placeholder="t('page.login.common.passwordPlaceholder')"
                 >
                   <template #prefix>
                     <div class="i-carbon-password" />
@@ -195,7 +202,7 @@ function toggleLanguage() {
                   v-model:value="registerModel.confirmPassword"
                   type="password"
                   show-password-on="click"
-                  :placeholder="t('login.confirmPasswordPlaceholder')"
+                  :placeholder="t('page.login.common.confirmPasswordPlaceholder')"
                   @keyup.enter="handleRegister"
                 >
                   <template #prefix>
@@ -204,7 +211,7 @@ function toggleLanguage() {
                 </n-input>
               </n-form-item>
               <n-button type="primary" block size="large" @click="handleRegister">
-                {{ t('login.registerBtn') }}
+                {{ t('page.login.common.confirm') }}
               </n-button>
             </n-form>
           </div>

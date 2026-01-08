@@ -7,7 +7,7 @@ import unocss from '@unocss/vite'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-import vueDevTools from 'vite-plugin-vue-devtools'
+// import vueDevTools from 'vite-plugin-vue-devtools'
 import icons from 'unplugin-icons/vite'
 import iconsResolver from 'unplugin-icons/resolver'
 import components from 'unplugin-vue-components/vite'
@@ -24,7 +24,6 @@ const buildTime = dayjs.tz(Date.now(), 'Asia/Shanghai').format('YYYY-MM-DD HH:mm
 // https://vite.dev/config/
 export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta
-  console.log(viteEnv)
   return {
     base: viteEnv.VITE_BASE_URL,
     resolve: {
@@ -60,9 +59,9 @@ export default defineConfig((configEnv) => {
           }),
         ],
       }),
-      vueDevTools({
-        launchEditor: viteEnv.VITE_DEVTOOLS_LAUNCH_EDITOR,
-      }),
+      // vueDevTools({
+      //   launchEditor: viteEnv.VITE_DEVTOOLS_LAUNCH_EDITOR,
+      // }),
       setupHtmlPlugin(buildTime),
     ],
     define: {
