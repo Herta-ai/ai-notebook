@@ -61,11 +61,7 @@ export function getTabIdByRoute(route: App.Global.TabRoute) {
 export function getTabByRoute(route: App.Global.TabRoute) {
   const { name, path, fullPath = path, meta } = route
 
-  const { title, i18nKey, fixedIndexInTab } = meta as {
-    title: string
-    i18nKey: App.I18n.I18nKey
-    fixedIndexInTab?: number
-  }
+  const { title, i18nKey, fixedIndexInTab } = meta
 
   // Get icon and localIcon from getRouteIcons function
   const { icon, localIcon } = getRouteIcons(route)

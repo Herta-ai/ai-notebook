@@ -24,7 +24,7 @@ export const useAppStore = defineStore(SetupStoreId.App, () => {
   }
   /** Update document title by locale */
   function updateDocumentTitleByLocale() {
-    const { i18nKey, title } = router.currentRoute.value.meta as { i18nKey?: App.I18n.I18nKey, title?: string }
+    const { i18nKey, title } = router.currentRoute.value.meta
 
     const documentTitle = i18nKey ? $t(i18nKey) : title
 

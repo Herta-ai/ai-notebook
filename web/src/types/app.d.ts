@@ -2,106 +2,106 @@
 declare namespace App {
   /** Global namespace */
   namespace Global {
-    type VNode = import('vue').VNode;
-    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded;
-    type RouteKey = Route.RouteKey;
-    type RouteMap = Route.RouteMap;
-    type RoutePath = Route.RoutePath;
-    type LastLevelRouteKey = Route.LastLevelRouteKey;
+    type VNode = import('vue').VNode
+    type RouteLocationNormalizedLoaded = import('vue-router').RouteLocationNormalizedLoaded
+    type RouteKey = Route.RouteKey
+    type RouteMap = Route.RouteMap
+    type RoutePath = Route.RoutePath
+    type LastLevelRouteKey = Route.LastLevelRouteKey
 
     /** The router push options */
-    type RouterPushOptions = {
-      query?: Record<string, string>;
-      params?: Record<string, string>;
-    };
+    interface RouterPushOptions {
+      query?: Record<string, string>
+      params?: Record<string, string>
+    }
 
     /** The global header props */
     interface HeaderProps {
       /** Whether to show the logo */
-      showLogo?: boolean;
+      showLogo?: boolean
       /** Whether to show the menu toggler */
-      showMenuToggler?: boolean;
+      showMenuToggler?: boolean
       /** Whether to show the menu */
-      showMenu?: boolean;
+      showMenu?: boolean
     }
 
     /** The global menu */
-    type Menu = {
+    interface Menu {
       /**
        * The menu key
        *
        * Equal to the route key
        */
-      key: string;
+      key: string
       /** The menu label */
-      label: string;
+      label: string
       /** The menu i18n key */
-      i18nKey?: I18n.I18nKey | null;
+      i18nKey?: I18n.I18nKey | null
       /** The route key */
-      routeKey: RouteKey;
+      routeKey: RouteKey
       /** The route path */
-      routePath: RoutePath;
+      routePath: RoutePath
       /** The menu icon */
-      icon?: () => VNode;
+      icon?: () => VNode
       /** The menu children */
-      children?: Menu[];
-    };
+      children?: Menu[]
+    }
 
     type Breadcrumb = Omit<Menu, 'children'> & {
-      options?: Breadcrumb[];
-    };
+      options?: Breadcrumb[]
+    }
 
     /** Tab route */
-    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'> &
-      Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query' | 'matched'>>;
+    type TabRoute = Pick<RouteLocationNormalizedLoaded, 'name' | 'path' | 'meta'>
+      & Partial<Pick<RouteLocationNormalizedLoaded, 'fullPath' | 'query' | 'matched'>>
 
     /** The global tab */
-    type Tab = {
+    interface Tab {
       /** The tab id */
-      id: string;
+      id: string
       /** The tab label */
-      label: string;
+      label: string
       /**
        * The new tab label
        *
        * If set, the tab label will be replaced by this value
        */
-      newLabel?: string;
+      newLabel?: string
       /**
        * The old tab label
        *
        * when reset the tab label, the tab label will be replaced by this value
        */
-      oldLabel?: string;
+      oldLabel?: string
       /** The tab route key */
-      routeKey: LastLevelRouteKey;
+      routeKey: LastLevelRouteKey
       /** The tab route path */
-      routePath: RouteMap[LastLevelRouteKey];
+      routePath: RouteMap[LastLevelRouteKey]
       /** The tab route full path */
-      fullPath: string;
+      fullPath: string
       /** The tab fixed index */
-      fixedIndex?: number | null;
+      fixedIndex?: number | null
       /**
        * Tab icon
        *
        * Iconify icon
        */
-      icon?: string;
+      icon?: string
       /**
        * Tab local icon
        *
        * Local icon
        */
-      localIcon?: string;
+      localIcon?: string
       /** I18n key */
-      i18nKey?: I18n.I18nKey | null;
-    };
+      i18nKey?: I18n.I18nKey | null
+    }
 
     /** Form rule */
-    type FormRule = import('naive-ui').FormItemRule;
+    type FormRule = import('naive-ui').FormItemRule
 
     /** The global dropdown key */
-    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll' | 'pin' | 'unpin';
+    type DropdownKey = 'closeCurrent' | 'closeOther' | 'closeLeft' | 'closeRight' | 'closeAll' | 'pin' | 'unpin'
   }
 
   /** Theme namespace */

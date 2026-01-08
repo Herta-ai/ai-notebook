@@ -1,13 +1,24 @@
 declare namespace Api {
   interface RequestConfig {
     // disable error message
-    unErrMsg?: boolean;
+    unErrMsg?: boolean
   }
-  interface CommonResponseSchema {
-    code: number;
-    message: string;
-    data: any;
-    success: boolean;
+  interface PageInfo {
+    /** current page number */
+    pageNum: number
+    /** page size */
+    pageSize: number
+    /** total number of records */
+    total: number
+  }
+  interface CommonResponse<T> {
+    code: number
+    message: string
+    data: T
+    success: boolean
+  }
+  interface PageResponse<T> extends CommonResponse<T> {
+    pageInfo: PageInfo
   }
   /**
    * namespace Auth
@@ -16,15 +27,15 @@ declare namespace Api {
    */
   namespace User {
     interface LoginToken {
-      token: string;
-      refreshToken: string;
+      token: string
+      refreshToken: string
     }
 
     interface UserInfo {
-      userId: string;
-      userName: string;
-      roles: string[];
-      buttons: string[];
+      userId: string
+      userName: string
+      roles: string[]
+      buttons: string[]
     }
   }
 }
