@@ -1,6 +1,6 @@
 {
   "name": "@ai-notebook/server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "module": "src/index.js",
   "scripts": {
