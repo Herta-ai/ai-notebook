@@ -1,12 +1,13 @@
-import type { App } from 'vue'
 import { createI18n } from 'vue-i18n'
-import messages from './locale'
 import { localStg } from '@/utils/storage'
+import messages from './locale'
+import type { App } from 'vue'
 
 const i18n = createI18n<[I18n.Schema]>({
   locale: localStg.get('lang') || 'zh-CN',
   fallbackLocale: 'en',
   messages,
+  legacy: false,
 })
 
 /**

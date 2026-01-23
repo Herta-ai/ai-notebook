@@ -1,6 +1,11 @@
 import { computed, ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
 import { defineStore } from 'pinia'
+import { router } from '@/router'
+import { useRouterPush } from '@/hooks'
+import { localStg } from '@/utils/storage'
+import { SetupStoreId } from '@/const'
+import { $t } from '@/locales'
 import { useThemeStore } from '../theme'
 import {
   extractTabsByAllRoutes,
@@ -15,11 +20,6 @@ import {
   updateTabByI18nKey,
   updateTabsByI18nKey,
 } from './shared'
-import { router } from '@/router'
-import { useRouterPush } from '@/hooks/common/router'
-import { localStg } from '@/utils/storage'
-import { SetupStoreId } from '@/const'
-import { $t } from '@/locales'
 
 export const useTabStore = defineStore(SetupStoreId.Tab, () => {
   const themeStore = useThemeStore()

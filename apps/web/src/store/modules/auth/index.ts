@@ -1,14 +1,13 @@
 import { computed, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { defineStore } from 'pinia'
-import { useLoading } from '@ai-notebook/hooks'
-import { useTabStore } from '../tab'
-import { clearAuthStorage, getToken } from './shared'
 import { fetchGetUserInfo, fetchLogin } from '@/api'
-import { useRouterPush } from '@/hooks/common/router'
+import { useLoading, useRouterPush } from '@/hooks'
 import { localStg } from '@/utils/storage'
 import { SetupStoreId } from '@/const'
 import { $t } from '@/locales'
+import { useTabStore } from '../tab'
+import { clearAuthStorage, getToken } from './shared'
 
 export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   const route = useRoute()

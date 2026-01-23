@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { createTextVNode, defineComponent } from 'vue';
-import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui';
+import { createTextVNode, defineComponent } from 'vue'
+import { useDialog, useLoadingBar, useMessage, useNotification } from 'naive-ui'
 
 defineOptions({
-  name: 'AppProvider'
-});
+  name: 'AppProvider',
+})
 
 const ContextHolder = defineComponent({
   name: 'ContextHolder',
   setup() {
     function register() {
-      window.$loadingBar = useLoadingBar();
-      window.$dialog = useDialog();
-      window.$message = useMessage();
-      window.$notification = useNotification();
+      window.$loadingBar = useLoadingBar()
+      window.$dialog = useDialog()
+      window.$message = useMessage()
+      window.$notification = useNotification()
     }
 
-    register();
+    register()
 
-    return () => createTextVNode();
-  }
-});
+    return () => createTextVNode()
+  },
+})
 </script>
 
 <template>
@@ -29,7 +29,7 @@ const ContextHolder = defineComponent({
       <NNotificationProvider>
         <NMessageProvider>
           <ContextHolder />
-          <slot></slot>
+          <slot />
         </NMessageProvider>
       </NNotificationProvider>
     </NDialogProvider>

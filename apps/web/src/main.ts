@@ -1,19 +1,20 @@
-import { createApp } from 'vue'
-import { setupDayjs, setupLoading, setupNProgress } from './plugins'
-import { setupStore } from './store'
-import { setupI18n } from './locales'
-import App from './App.vue'
 import './styles'
-import { setupRouter } from './router'
+import { createApp } from 'vue'
+import { setupAppVersionNotification, setupDayjs, setupLoading, setupNProgress } from '@/plugins'
+import { setupStore } from '@/store'
+import { setupRouter } from '@/router'
+import { setupI18n } from '@/locales'
+import App from './App.vue'
 
 async function setupApp() {
   setupLoading()
   setupNProgress()
-  setupDayjs()
   const app = createApp(App)
   setupStore(app)
+  setupDayjs()
   await setupRouter(app)
   setupI18n(app)
+  setupAppVersionNotification()
   app.mount('#app')
 }
 

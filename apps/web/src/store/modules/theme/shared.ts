@@ -1,4 +1,3 @@
-import type { GlobalThemeOverrides } from 'naive-ui'
 import { defu } from 'defu'
 import { addColorAlpha, getColorPalette, getPaletteColorByNumber, getRgb } from '@ai-notebook/color'
 import { DARK_CLASS } from '@/const'
@@ -6,6 +5,7 @@ import { toggleHtmlClass } from '@/utils/common'
 import { localStg } from '@/utils/storage'
 import { overrideThemeSettings, themeSettings } from '@/theme/settings'
 import { themeVars } from '@/theme/vars'
+import type { GlobalThemeOverrides } from 'naive-ui'
 
 /** Init theme settings */
 export function initThemeSettings() {

@@ -9,7 +9,7 @@ import { inject, provide } from 'vue'
  *
  *   // context.ts
  *   import { ref } from 'vue';
- *   import { useContext } from '@ai-notebook/hooks';
+ *   import { useContext } from '@sa/hooks';
  *
  *   export const [provideDemoContext, useDemoContext] = useContext('demo', () => {
  *     const count = ref(0);
@@ -56,7 +56,7 @@ import { inject, provide } from 'vue'
  * @param contextName Context name
  * @param composable Context function
  */
-export default function useContext<Arguments extends Array<any>, T>(
+export function useContext<Arguments extends Array<any>, T>(
   contextName: string,
   composable: (...args: Arguments) => T,
 ) {

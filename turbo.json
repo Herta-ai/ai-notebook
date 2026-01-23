@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "src-tauri/target/release/**"]
+    },
+    "build:tauri": {
+      "outputs": ["dist/**"]
+    },
+    "@ai-notebook/desktop#build:tauri": {
+      "dependsOn": ["@ai-notebook/web#build:tauri"],
+      "outputs": ["src-tauri/target/release/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:tauri": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {},
+    "typecheck": {}
+  }
+}

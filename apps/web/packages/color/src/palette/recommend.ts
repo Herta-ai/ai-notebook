@@ -1,3 +1,5 @@
+import { getColorName, getDeltaE, getHsl, isValidColor, transformHslToHex } from '../shared'
+import { colorPalettes } from '../constant'
 import type {
   ColorPalette,
   ColorPaletteFamily,
@@ -5,8 +7,6 @@ import type {
   ColorPaletteMatch,
   ColorPaletteNumber,
 } from '../types'
-import { getColorName, getDeltaE, getHsl, isValidColor, transformHslToHex } from '../shared'
-import { colorPalettes } from '../constant'
 
 /**
  * get recommended color palette by provided color

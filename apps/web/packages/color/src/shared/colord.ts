@@ -1,8 +1,8 @@
-import type { AnyColor, HslColor, RgbColor } from 'colord'
 import { colord, extend } from 'colord'
 import namesPlugin from 'colord/plugins/names'
 import mixPlugin from 'colord/plugins/mix'
 import labPlugin from 'colord/plugins/lab'
+import type { AnyColor, HslColor, RgbColor } from 'colord'
 
 extend([namesPlugin, mixPlugin, labPlugin])
 

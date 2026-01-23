@@ -3,7 +3,7 @@ import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useThemeStore } from '@/store/modules/theme'
 import { useAppStore } from '@/store/modules/app'
-import { useNaiveForm } from '@/hooks/common/form'
+import { useNaiveForm } from '@/hooks'
 
 const { t } = useI18n()
 const themeStore = useThemeStore()
@@ -52,7 +52,7 @@ const registerRules = {
   confirmPassword: {
     required: true,
     trigger: 'blur',
-    validator: (rule: any, value: string) => {
+    validator: (_: any, value: string) => {
       if (!value) {
         return new Error(t('page.login.form.confirmPassword.required'))
       }
@@ -222,7 +222,5 @@ function toggleTheme() {
 </template>
 
 <style scoped>
-.text-primary {
-  color: var(--primary-color);
-}
+
 </style>

@@ -12,7 +12,22 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppProvider: typeof import('./../components/app-provider.vue')['default']
     ExceptionBase: typeof import('./../components/exception-base.vue')['default']
+    NButton: typeof import('naive-ui')['NButton']
+    NCard: typeof import('naive-ui')['NCard']
+    NDialogProvider: typeof import('naive-ui')['NDialogProvider']
+    NDropdown: typeof import('naive-ui')['NDropdown']
+    NForm: typeof import('naive-ui')['NForm']
+    NFormItem: typeof import('naive-ui')['NFormItem']
+    NInput: typeof import('naive-ui')['NInput']
+    NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
+    NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+    NTabPane: typeof import('naive-ui')['NTabPane']
+    NTabs: typeof import('naive-ui')['NTabs']
+    NTooltip: typeof import('naive-ui')['NTooltip']
+    NWatermark: typeof import('naive-ui')['NWatermark']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
@@ -20,7 +35,22 @@ declare module 'vue' {
 
 // For TSX support
 declare global {
+  const AppProvider: typeof import('./../components/app-provider.vue')['default']
   const ExceptionBase: typeof import('./../components/exception-base.vue')['default']
+  const NButton: typeof import('naive-ui')['NButton']
+  const NCard: typeof import('naive-ui')['NCard']
+  const NDialogProvider: typeof import('naive-ui')['NDialogProvider']
+  const NDropdown: typeof import('naive-ui')['NDropdown']
+  const NForm: typeof import('naive-ui')['NForm']
+  const NFormItem: typeof import('naive-ui')['NFormItem']
+  const NInput: typeof import('naive-ui')['NInput']
+  const NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
+  const NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+  const NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
+  const NTabPane: typeof import('naive-ui')['NTabPane']
+  const NTabs: typeof import('naive-ui')['NTabs']
+  const NTooltip: typeof import('naive-ui')['NTooltip']
+  const NWatermark: typeof import('naive-ui')['NWatermark']
   const RouterLink: typeof import('vue-router')['RouterLink']
   const RouterView: typeof import('vue-router')['RouterView']
 }

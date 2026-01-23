@@ -3,11 +3,11 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import unocss from '@unocss/vite'
+import unocss from 'unocss/vite'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
-// import vueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools'
 import icons from 'unplugin-icons/vite'
 import iconsResolver from 'unplugin-icons/resolver'
 import components from 'unplugin-vue-components/vite'
@@ -60,9 +60,9 @@ export default defineConfig((configEnv) => {
           }),
         ],
       }),
-      // vueDevTools({
-      //   launchEditor: viteEnv.VITE_DEVTOOLS_LAUNCH_EDITOR,
-      // }),
+      vueDevTools({
+        launchEditor: viteEnv.VITE_DEVTOOLS_LAUNCH_EDITOR,
+      }),
       setupHtmlPlugin(buildTime),
     ],
     define: {

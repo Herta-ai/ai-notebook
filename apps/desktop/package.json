@@ -1,12 +1,11 @@
 {
   "name": "@ai-notebook/desktop",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "dev:tauri": "tauri dev",
+    "build:tauri": "tauri build",
     "tauri": "tauri"
   },
   "dependencies": {

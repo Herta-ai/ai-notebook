@@ -7,7 +7,7 @@ import { useRafFn } from '@vueuse/core'
  *
  * @param initialSeconds - The total number of seconds for the countdown.
  */
-export default function useCountDown(initialSeconds: number) {
+export function useCountDown(initialSeconds: number) {
   const remainingSeconds = ref(0)
 
   const count = computed(() => Math.ceil(remainingSeconds.value))

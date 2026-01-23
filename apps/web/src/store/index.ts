@@ -1,7 +1,7 @@
-import type { App } from 'vue'
 import { createPinia } from 'pinia'
 import { createPersistedState } from 'pinia-plugin-persistedstate'
 import { resetSetupStore } from './plugins'
+import type { App } from 'vue'
 
 const storagePrefix = import.meta.env.VITE_STORAGE_PREFIX || ''
 

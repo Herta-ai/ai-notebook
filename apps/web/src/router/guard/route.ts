@@ -1,10 +1,10 @@
+import { useAuthStore } from '@/store/modules/auth'
+import { localStg } from '@/utils/storage'
 import type {
   NavigationGuardNext,
   RouteLocationNormalized,
   Router,
 } from 'vue-router'
-import { useAuthStore } from '@/store/modules/auth'
-import { localStg } from '@/utils/storage'
 
 /**
  * create route guard

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useRouterPush } from '@/hooks/common/router'
+import { useRouterPush } from '@/hooks'
 import { $t } from '@/locales'
 
 defineOptions({ name: 'ExceptionBase' })

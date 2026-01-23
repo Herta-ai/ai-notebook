@@ -2,6 +2,7 @@
   "name": "@ai-notebook/share",
   "module": "index.ts",
   "type": "module",
+  "private": true,
   "exports": {
     ".": {
       "import": "./index.ts"

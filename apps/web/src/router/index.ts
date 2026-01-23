@@ -1,4 +1,3 @@
-import type { App } from 'vue'
 import {
   createMemoryHistory,
   createRouter,
@@ -6,9 +5,10 @@ import {
   createWebHistory,
 
 } from 'vue-router'
-import type { RouterHistory } from 'vue-router'
 import { routes } from './routes'
 import { createRouterGuard } from './guard'
+import type { RouterHistory } from 'vue-router'
+import type { App } from 'vue'
 
 const { VITE_ROUTER_HISTORY_MODE = 'history', VITE_BASE_URL } = import.meta.env
 

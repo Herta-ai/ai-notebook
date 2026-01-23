@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { darkTheme, NConfigProvider } from 'naive-ui'
-import type { WatermarkProps } from 'naive-ui'
 import { useAppStore } from './store/modules/app'
 import { useThemeStore } from './store/modules/theme'
 import { naiveDateLocales, naiveLocales } from './locales/naive'
+import type { WatermarkProps } from 'naive-ui'
 
 defineOptions({
   name: 'App',

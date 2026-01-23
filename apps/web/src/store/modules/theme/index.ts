@@ -1,8 +1,9 @@
 import { computed, effectScope, onScopeDispose, ref, toRefs, watch } from 'vue'
-import type { Ref } from 'vue'
 import { useDateFormat, useEventListener, useNow, usePreferredColorScheme } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { getPaletteColorByNumber } from '@ai-notebook/color'
+import { localStg } from '@/utils/storage'
+import { SetupStoreId } from '@/const'
 import { useAuthStore } from '../auth'
 import {
   addThemeVarsToGlobal,
@@ -12,8 +13,7 @@ import {
   toggleAuxiliaryColorModes,
   toggleCssDarkMode,
 } from './shared'
-import { localStg } from '@/utils/storage'
-import { SetupStoreId } from '@/const'
+import type { Ref } from 'vue'
 
 /** Theme store */
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {

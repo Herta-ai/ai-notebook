@@ -1,6 +1,6 @@
-import type { Router } from 'vue-router'
 import { $t } from '@/locales'
 import { routeMap } from '@/router/routes'
+import type { Router } from 'vue-router'
 
 /**
  * Get all tabs
