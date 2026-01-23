@@ -1,0 +1,20 @@
+{
+  "name": "@ai-notebook/root",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev:web": "bun -F @ai-notebook/web dev",
+    "dev:desktop": "bun -F @ai-notebook/desktop truri"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
