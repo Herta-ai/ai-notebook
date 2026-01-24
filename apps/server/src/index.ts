@@ -1,6 +1,19 @@
 import { Elysia } from 'elysia'
+import { swagger } from '@elysiajs/swagger'
+import { cors } from '@elysiajs/cors'
+import { responsePlugin } from './middlewares/response'
+import { userController } from './controllers/user.controller'
+import { initDB, surreal } from './utils/db'
 
-const app = new Elysia().get('/', () => 'Hello Elysia').listen(3000)
+const app = new Elysia()
+  .use(swagger())
+  .use(cors())
+  .use(responsePlugin)
+  .use(surreal)
+  .onStart(initDB)
+  .use(userController)
+  .get('/', () => 'Hello Elysia + SurrealDB')
+  .listen(3000)
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

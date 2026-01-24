@@ -17,6 +17,7 @@ export default antfu({
     'import-x': importX,
   },
   rules: {
+    'n/prefer-global/process': 'off',
     'ts/ban-ts-comment': 'off',
     'no-console': 'off',
     // 禁用 perfectionist/sort-imports 规则
