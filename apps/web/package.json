@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:tauri": "vite",
+    "dev:tauri": "vite --mode tauri",
     "build": "vite build",
-    "build:tauri": "vite build",
+    "build:tauri": "vite build --mode tauri",
     "preview": "vite preview",
     "lint": "eslint --fix .",
     "typecheck": "vue-tsc --noEmit"

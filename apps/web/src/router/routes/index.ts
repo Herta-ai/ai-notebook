@@ -41,16 +41,6 @@ export const routes: RouteRecordRaw[] = [
     ],
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/index.vue'),
-    meta: {
-      i18nKey: 'route.login',
-      title: 'Login',
-      constant: true,
-    },
-  },
-  {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
     component: () => import('@/views/exceptions/404/index.vue'),
@@ -81,6 +71,19 @@ export const routes: RouteRecordRaw[] = [
     },
   },
 ]
+
+if (import.meta.env.VITE_APP_MODE === 'WEB') {
+  routes.push({
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/index.vue'),
+    meta: {
+      i18nKey: 'route.login',
+      title: 'Login',
+      constant: true,
+    },
+  })
+}
 
 export const routeMap: Route.RouteMap = {
   'root': '/',

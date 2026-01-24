@@ -20,6 +20,7 @@ export function createRouteGuard(router: Router) {
     const noAuthorizationRoute: Route.RouteKey = '403'
 
     const isLogin = Boolean(localStg.get('token'))
+    const isWeb = import.meta.env.VITE_APP_MODE === 'WEB'
     const needLogin = !to.meta.constant
     const routeRoles = to.meta.roles || []
 
@@ -39,13 +40,15 @@ export function createRouteGuard(router: Router) {
     }
 
     // the route need login but the user is not logged in, then switch to the login page
-    if (!isLogin) {
+    // tauri web app does not need to login
+    if (!isLogin && isWeb) {
       next({ name: loginRoute, query: { redirect: to.fullPath } })
       return
     }
 
     // if the user is logged in but does not have authorization, then switch to the 403 page
-    if (!hasAuth) {
+    // tauri web app does not need to check authorization
+    if (!hasAuth && isWeb) {
       next({ name: noAuthorizationRoute })
       return
     }

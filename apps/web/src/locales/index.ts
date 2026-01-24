@@ -22,5 +22,7 @@ export function setupI18n(app: App) {
 export const $t = i18n.global.t as I18n.$T
 
 export function setLocale(locale: I18n.LangType) {
+  // @ts-ignore
+  // @todo: fix type
   i18n.global.locale.value = locale
 }
