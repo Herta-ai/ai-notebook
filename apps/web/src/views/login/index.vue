@@ -130,7 +130,7 @@ function toggleTheme() {
         <n-tab-pane name="login" :tab="t('page.login.login.title')">
           <div class="p-6 pt-2">
             <n-form
-              :ref="loginFormRef"
+              ref="loginFormRef"
               :model="loginModel"
               :rules="loginRules"
               label-placement="left"
@@ -169,7 +169,7 @@ function toggleTheme() {
         <n-tab-pane name="register" :tab="t('page.login.register.title')">
           <div class="p-6 pt-2">
             <n-form
-              :ref="registerFormRef"
+              ref="registerFormRef"
               :model="registerModel"
               :rules="registerRules"
               label-placement="left"
