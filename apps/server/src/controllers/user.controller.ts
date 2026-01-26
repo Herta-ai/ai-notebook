@@ -51,7 +51,7 @@ export const userController = new Elysia({ prefix: '/user' })
     }
 
     const token = await jwt.sign({
-      id: user.id,
+      id: user.id.toString(),
       username: user.username,
     })
 
@@ -66,7 +66,7 @@ export const userController = new Elysia({ prefix: '/user' })
     if (!user)
       return error('Unauthorized', 401)
 
-    const userProfile = await userService.findById(db, user.id as string)
+    const userProfile = await userService.findById(db, user.id)
     if (!userProfile)
       return error('User not found', 404)
 
@@ -89,8 +89,7 @@ export const userController = new Elysia({ prefix: '/user' })
       updateData.password = await Bun.password.hash(body.password)
     }
 
-    // @todo: 更新出错：Can not execute UPDATE statement using value: { id: 'xxx', tb: 'user' }
-    const updated = await userService.updateUser(db, user.id as string, updateData)
+    const updated = await userService.updateUser(db, user.id, updateData)
     if (!updated)
       return error('Update failed', 500)
 

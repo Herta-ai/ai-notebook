@@ -1,14 +1,14 @@
 import { Elysia } from 'elysia'
 import { swagger } from '@elysiajs/swagger'
 import { cors } from '@elysiajs/cors'
-import { responsePlugin } from './middlewares/response'
+import { errorHandler } from './middlewares/response'
 import { userController } from './controllers/user.controller'
 import { initDB, surreal } from './utils/db'
 
 const app = new Elysia()
   .use(swagger())
   .use(cors())
-  .use(responsePlugin)
+  .onError(errorHandler)
   .use(surreal)
   .onStart(initDB)
   .use(userController)
