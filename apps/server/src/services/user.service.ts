@@ -1,6 +1,8 @@
-import { StringRecordId } from 'surrealdb'
+import { StringRecordId, Table } from 'surrealdb'
 import type { User } from '../models/user.model'
-import type Surreal from 'surrealdb'
+import type { Surreal } from 'surrealdb'
+
+const uersonTable = new Table('person')
 
 export async function findByUsername(db: Surreal, username: string) {
   const result = await db.query<[User[]]>(
@@ -12,7 +14,7 @@ export async function findByUsername(db: Surreal, username: string) {
 }
 
 export async function createUser(db: Surreal, user: Omit<User, 'id'>) {
-  const created = await db.create('user', user as Record<string, any>)
+  const created = await db.create(uersonTable, user as Record<string, any>)
   if (Array.isArray(created))
     return created[0]
   return created
