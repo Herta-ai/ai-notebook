@@ -51,7 +51,7 @@ export const userController = new Elysia({ prefix: '/user' })
     }
 
     const token = await jwt.sign({
-      id: user.id.toString(),
+      id: user.id.id.toString(),
       username: user.username,
     })
 
@@ -62,7 +62,6 @@ export const userController = new Elysia({ prefix: '/user' })
 
   // Get Profile
   .get('/profile', async ({ db, user }) => {
-    // user is injected by authPlugin via derive
     if (!user)
       return error('Unauthorized', 401)
 
