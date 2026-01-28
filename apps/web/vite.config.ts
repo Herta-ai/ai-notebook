@@ -24,7 +24,14 @@ const buildTime = dayjs.tz(Date.now(), 'Asia/Shanghai').format('YYYY-MM-DD HH:mm
 // https://vite.dev/config/
 export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta
+  const isTauri = configEnv.mode === 'tauri'
   return {
+    server: isTauri
+      ? {
+          port: 5174,
+          strictPort: true,
+        }
+      : undefined,
     base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
