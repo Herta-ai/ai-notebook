@@ -1,6 +1,6 @@
 export interface Result<T = any> {
   data: T | null
-  msg: string
+  message: string
   code: number
-  isSuccess: boolean
+  success: boolean
 }

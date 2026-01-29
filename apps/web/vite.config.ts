@@ -24,19 +24,27 @@ const buildTime = dayjs.tz(Date.now(), 'Asia/Shanghai').format('YYYY-MM-DD HH:mm
 // https://vite.dev/config/
 export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as Env.ImportMeta
-  const isTauri = configEnv.mode === 'tauri'
   return {
-    server: isTauri
-      ? {
-          port: 5174,
-          strictPort: true,
-        }
-      : undefined,
+    server: {
+      port: 5173,
+      strictPort: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000',
+          changeOrigin: true,
+          rewrite: (path: string) => path.replace(/^\/api/, ''),
+        },
+      },
+    },
     base: viteEnv.VITE_BASE_URL,
     resolve: {
       alias: {
         '~': fileURLToPath(new URL('./', import.meta.url)),
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@service': fileURLToPath(new URL(
+          viteEnv.VITE_APP_MODE === 'WEB' ? './src/service/web-adapter.ts' : './src/service/tauri-adapter.ts',
+          import.meta.url,
+        )),
       },
     },
     css: {

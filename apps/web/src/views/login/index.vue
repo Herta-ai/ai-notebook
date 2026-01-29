@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useThemeStore } from '@/store/modules/theme'
-import { useAppStore } from '@/store/modules/app'
-import { useNaiveForm } from '@/hooks'
+import { useNaiveForm, useStore } from '@/hooks'
 
 const { t } = useI18n()
-const themeStore = useThemeStore()
-const appStore = useAppStore()
+
+const { login, register } = useStore('user')
+const { localeOptions, changeLocale } = useStore('app')
+const { toggleThemeScheme, themeScheme } = useStore('theme')
 
 const activeTab = ref<'login' | 'register'>('login')
 
@@ -65,25 +65,19 @@ const registerRules = {
 }
 
 async function handleLogin() {
-  // TODO: Implement login logic
   try {
     await validateLogin()
-    // TODO: Implement login logic
+    await login(loginModel.username, loginModel.password)
   }
   catch {}
 }
 
 async function handleRegister() {
-  // TODO: Implement register logic
   try {
     await validateRegister()
-    // TODO: Implement register logic
+    await register(loginModel.username, loginModel.password)
   }
   catch {}
-}
-
-function toggleTheme() {
-  themeStore.toggleThemeScheme()
 }
 </script>
 
@@ -93,20 +87,20 @@ function toggleTheme() {
     <div class="absolute right-4 top-4 flex gap-2">
       <n-tooltip trigger="hover">
         <template #trigger>
-          <n-button circle quaternary @click="toggleTheme">
+          <n-button circle quaternary @click="toggleThemeScheme">
             <template #icon>
-              <div v-if="themeStore.themeScheme === 'light'" class="i-carbon-sun" />
-              <div v-else-if="themeStore.themeScheme === 'dark'" class="i-carbon-moon" />
+              <div v-if="themeScheme === 'light'" class="i-carbon-sun" />
+              <div v-else-if="themeScheme === 'dark'" class="i-carbon-moon" />
               <div v-else class="i-carbon-laptop" />
             </template>
           </n-button>
         </template>
-        {{ t(`theme.appearance.themeSchema.${themeStore.themeScheme}`) }}
+        {{ t(`theme.appearance.themeSchema.${themeScheme}`) }}
       </n-tooltip>
       <n-dropdown
-        :options="appStore.localeOptions"
+        :options="localeOptions"
         trigger="hover"
-        @select="appStore.changeLocale"
+        @select="changeLocale"
       >
         <n-button circle quaternary>
           <template #icon>

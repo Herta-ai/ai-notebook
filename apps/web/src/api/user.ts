@@ -6,25 +6,27 @@ import { request } from './request'
  * @param username User name
  * @param password Password
  */
-export function fetchLogin(username: string, password: string) {
-  return request.Post<Api.CommonResponse<Api.User.LoginToken>>('/auth/login', {
+export function login(username: string, password: string): Promise<Api.User.LoginToken> {
+  return request.Post('/user/login', {
+    username,
+    password,
+  })
+}
+
+/**
+ * Register
+ *
+ * @param username User name
+ * @param password Password
+ */
+export function register(username: string, password: string): Promise<Api.User.LoginToken> {
+  return request.Post('/user/register', {
     username,
     password,
   })
 }
 
 /** Get user info */
-export function fetchGetUserInfo() {
-  return request.Get<Api.CommonResponse<Api.User.UserInfo>>('/auth/getUserInfo')
-}
-
-/**
- * Refresh token
- *
- * @param refreshToken Refresh token
- */
-export function fetchRefreshToken(refreshToken: string) {
-  return request.Post<Api.CommonResponse<Api.User.LoginToken>>('/auth/refreshToken', {
-    refreshToken,
-  })
+export function profile(): Promise<Api.User.UserInfo> {
+  return request.Get<Api.User.UserInfo>('/user/profile')
 }

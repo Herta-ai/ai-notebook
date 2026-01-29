@@ -21,7 +21,7 @@ declare namespace Api {
     pageInfo: PageInfo
   }
   /**
-   * namespace Auth
+   * namespace User
    *
    * backend api module: "auth"
    */

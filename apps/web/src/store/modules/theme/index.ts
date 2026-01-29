@@ -4,7 +4,7 @@ import { defineStore } from 'pinia'
 import { getPaletteColorByNumber } from '@ai-notebook/color'
 import { localStg } from '@/utils/storage'
 import { SetupStoreId } from '@/const'
-import { useAuthStore } from '../auth'
+import { useUserStore } from '../user'
 import {
   addThemeVarsToGlobal,
   createThemeToken,
@@ -19,7 +19,7 @@ import type { Ref } from 'vue'
 export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const scope = effectScope()
   const osTheme = usePreferredColorScheme()
-  const authStore = useAuthStore()
+  const userStore = useUserStore()
 
   /** Theme settings */
   const settings: Ref<App.Theme.ThemeSetting> = ref(initThemeSettings())
@@ -76,8 +76,8 @@ export const useThemeStore = defineStore(SetupStoreId.Theme, () => {
   const watermarkContent = computed(() => {
     const { watermark } = settings.value
 
-    if (watermark.enableUserName && authStore.userInfo.username) {
-      return authStore.userInfo.username
+    if (watermark.enableUserName && userStore.userInfo.username) {
+      return userStore.userInfo.username
     }
 
     if (watermark.enableTime) {

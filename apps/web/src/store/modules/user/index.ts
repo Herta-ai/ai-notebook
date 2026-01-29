@@ -1,7 +1,8 @@
 import { computed, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { defineStore } from 'pinia'
-import { fetchGetUserInfo, fetchLogin } from '@/api'
+import to from 'await-to-js'
+import { service } from '@service'
 import { useLoading, useRouterPush } from '@/hooks'
 import { localStg } from '@/utils/storage'
 import { SetupStoreId } from '@/const'
@@ -9,9 +10,11 @@ import { $t } from '@/locales'
 import { useTabStore } from '../tab'
 import { clearAuthStorage, getToken } from './shared'
 
-export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
+const { login: fetchLogin, register: fetchRegister, profile } = service
+
+export const useUserStore = defineStore(SetupStoreId.User, () => {
   const route = useRoute()
-  const authStore = useAuthStore()
+  // const userStore = useUserStore()
   const tabStore = useTabStore()
   const { toLogin, redirectFromLogin } = useRouterPush(false)
   const { loading: loginLoading, startLoading, endLoading } = useLoading()
@@ -41,7 +44,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
 
     clearAuthStorage()
 
-    authStore.$reset()
+    // userStore.$reset()
 
     if (!route.meta.constant) {
       await toLogin()
@@ -95,7 +98,47 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function login(username: string, password: string, redirect = true) {
     startLoading()
 
-    const { data: loginToken, error } = await fetchLogin(username, password)
+    const [error, loginToken] = await to(fetchLogin!(username, password))
+
+    if (!error) {
+      const pass = await loginByToken(loginToken)
+
+      if (pass) {
+        // Check if the tab needs to be cleared
+        const isClear = checkTabClear()
+        let needRedirect = redirect
+
+        if (isClear) {
+          // If the tab needs to be cleared,it means we don't need to redirect.
+          needRedirect = false
+        }
+        await redirectFromLogin(needRedirect)
+
+        window.$notification?.success({
+          title: $t('page.login.common.loginSuccess'),
+          content: $t('page.login.common.welcomeBack', { username: userInfo.username }),
+          duration: 4500,
+        })
+      }
+    }
+    else {
+      resetStore()
+    }
+
+    endLoading()
+  }
+
+  /**
+   * Register
+   *
+   * @param username User name
+   * @param password Password
+   * @param [redirect] Whether to redirect after login. Default is `true`
+   */
+  async function register(username: string, password: string, redirect = true) {
+    startLoading()
+
+    const [error, loginToken] = await to(fetchRegister!(username, password))
 
     if (!error) {
       const pass = await loginByToken(loginToken)
@@ -128,7 +171,6 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   async function loginByToken(loginToken: Api.User.LoginToken) {
     // 1. stored in the localStorage, the later requests need it in headers
     localStg.set('token', loginToken.token)
-    localStg.set('refreshToken', loginToken.refreshToken)
 
     // 2. get user info
     const pass = await getUserInfo()
@@ -143,7 +185,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
   }
 
   async function getUserInfo() {
-    const { data: info, error } = await fetchGetUserInfo()
+    const [error, info] = await to(profile())
 
     if (!error) {
       // update store
@@ -175,6 +217,7 @@ export const useAuthStore = defineStore(SetupStoreId.Auth, () => {
     loginLoading,
     resetStore,
     login,
+    register,
     initUserInfo,
   }
 })

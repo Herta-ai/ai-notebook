@@ -10,7 +10,7 @@ export const userController = new Elysia({ prefix: '/user' })
   .use(authPlugin)
 
   // Register
-  .post('/register', async ({ db, body }) => {
+  .post('/register', async ({ db, jwt, body }) => {
     const { username, password, nickname } = body
 
     // Check if user exists
@@ -29,9 +29,12 @@ export const userController = new Elysia({ prefix: '/user' })
     })
 
     // Remove password from response
-    const { password: _, ...userWithoutPassword } = user as any
+    const token = await jwt.sign({
+      id: user.id.id.toString(),
+      username: user.username,
+    })
 
-    return success(userWithoutPassword, 'User registered successfully')
+    return success({ token }, 'User registered successfully')
   }, {
     body: UserDTO,
   })

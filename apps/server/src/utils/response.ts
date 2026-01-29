@@ -1,19 +1,19 @@
 import type { Result } from '../models/response.model'
 
-export function success<T>(data: T, msg: string = 'success'): Result<T> {
+export function success<T>(data: T, message: string = 'success'): Result<T> {
   return {
     data,
-    msg,
+    message,
     code: 200,
-    isSuccess: true,
+    success: true,
   }
 }
 
-export function error(msg: string = 'error', code: number = 500): Result<null> {
+export function error(message: string = 'error', code: number = 500): Result<null> {
   return {
     data: null,
-    msg,
+    message,
     code,
-    isSuccess: false,
+    success: false,
   }
 }

@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "identifier": "com.wyatex.ai-notebook",
   "build": {
-    "devUrl": "http://localhost:5174",
+    "devUrl": "http://localhost:5173",
     "frontendDist": "../../web/dist"
   },
   "app": {

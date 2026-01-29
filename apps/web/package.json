@@ -15,8 +15,11 @@
   "dependencies": {
     "@ai-notebook/color": "workspace:*",
     "@ai-notebook/utils": "workspace:*",
+    "@tauri-apps/api": "^2",
+    "@unocss/reset": "^66.6.0",
     "@vueuse/core": "^14.1.0",
     "alova": "^3.4.1",
+    "await-to-js": "^3.0.0",
     "dayjs": "^1.11.19",
     "defu": "^6.1.4",
     "naive-ui": "^2.43.2",

@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/store/modules/auth'
+import { useUserStore } from '@/store/modules/user'
 import { localStg } from '@/utils/storage'
 import type {
   NavigationGuardNext,
@@ -13,7 +13,7 @@ import type {
  */
 export function createRouteGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {
-    const authStore = useAuthStore()
+    const userStore = useUserStore()
 
     const rootRoute: Route.RouteKey = 'root'
     const loginRoute: Route.RouteKey = 'login'
@@ -24,8 +24,8 @@ export function createRouteGuard(router: Router) {
     const needLogin = !to.meta.constant
     const routeRoles = to.meta.roles || []
 
-    const hasRole = authStore.userInfo.roles.some(role => routeRoles.includes(role))
-    const hasAuth = authStore.isStaticSuper || !routeRoles.length || hasRole
+    const hasRole = userStore.userInfo.roles.some(role => routeRoles.includes(role))
+    const hasAuth = userStore.isStaticSuper || !routeRoles.length || hasRole
 
     // if it is login route when logged in, then switch to the root page
     if (to.name === loginRoute && isLogin) {
