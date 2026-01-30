@@ -1,5 +1,5 @@
 import { Elysia } from 'elysia'
-import { LoginDTO, UpdateUserDTO, UserDTO } from '../models/user.model'
+import { LoginDTO, RefreshTokenDTO, UpdateUserDTO, UserDTO } from '../models/user.model'
 import * as userService from '../services/user.service'
 import { error, success } from '../utils/response'
 import { authPlugin } from '../middlewares/auth'
@@ -10,7 +10,7 @@ export const userController = new Elysia({ prefix: '/user' })
   .use(authPlugin)
 
   // Register
-  .post('/register', async ({ db, jwt, body }) => {
+  .post('/register', async ({ db, jwt, refreshJwt, body }) => {
     const { username, password, nickname } = body
 
     // Check if user exists
@@ -33,14 +33,18 @@ export const userController = new Elysia({ prefix: '/user' })
       id: user.id.id.toString(),
       username: user.username,
     })
+    const refreshToken = await refreshJwt.sign({
+      id: user.id.id.toString(),
+      username: user.username,
+    })
 
-    return success({ token }, 'User registered successfully')
+    return success({ token, refreshToken }, 'User registered successfully')
   }, {
     body: UserDTO,
   })
 
   // Login
-  .post('/login', async ({ db, jwt, body }) => {
+  .post('/login', async ({ db, jwt, refreshJwt, body }) => {
     const { username, password } = body
 
     const user = await userService.findByUsername(db, username)
@@ -57,10 +61,37 @@ export const userController = new Elysia({ prefix: '/user' })
       id: user.id.id.toString(),
       username: user.username,
     })
+    const refreshToken = await refreshJwt.sign({
+      id: user.id.id.toString(),
+      username: user.username,
+    })
 
-    return success({ token }, 'Login successful')
+    return success({ token, refreshToken }, 'Login successful')
   }, {
     body: LoginDTO,
+  })
+
+  // Refresh Token
+  .post('/refresh', async ({ jwt, refreshJwt, body }) => {
+    const { refreshToken } = body
+    const payload = await refreshJwt.verify(refreshToken)
+
+    if (!payload) {
+      return error('Invalid refresh token', 401)
+    }
+
+    const token = await jwt.sign({
+      id: payload.id as string,
+      username: payload.username as string,
+    })
+    const newRefreshToken = await refreshJwt.sign({
+      id: payload.id as string,
+      username: payload.username as string,
+    })
+
+    return success({ token, refreshToken: newRefreshToken }, 'Token refreshed successfully')
+  }, {
+    body: RefreshTokenDTO,
   })
 
   // Get Profile

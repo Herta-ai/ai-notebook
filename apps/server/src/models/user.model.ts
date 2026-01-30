@@ -23,3 +23,7 @@ export const UpdateUserDTO = t.Object({
   nickname: t.Optional(t.String()),
   password: t.Optional(t.String({ minLength: 4, maxLength: 20, error: '密码长度在 4 到 20 个字符之间' })),
 })
+
+export const RefreshTokenDTO = t.Object({
+  refreshToken: t.String(),
+})

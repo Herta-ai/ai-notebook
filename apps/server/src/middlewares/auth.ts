@@ -7,6 +7,14 @@ export const authPlugin = new Elysia({ name: 'auth-plugin' })
     jwt({
       name: 'jwt',
       secret: process.env.JWT_SECRET || 'supersecretkey',
+      exp: process.env.JWT_EXPIRES_IN || '7d',
+    }),
+  )
+  .use(
+    jwt({
+      name: 'refreshJwt',
+      secret: process.env.JWT_REFRESH_SECRET || 'supersecretrefreshkey',
+      exp: process.env.JWT_REFRESH_EXPIRES_IN || '14d',
     }),
   )
   .derive({ as: 'global' }, async ({ jwt, headers }) => {
