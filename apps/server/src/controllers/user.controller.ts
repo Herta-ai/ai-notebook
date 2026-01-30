@@ -70,7 +70,7 @@ export const userController = new Elysia({ prefix: '/user' })
 
     const userProfile = await userService.findById(db, user.id)
     if (!userProfile)
-      return error('User not found', 404)
+      return error('Unauthorized', 401)
 
     const { password: _, ...safeUser } = userProfile as any
     // @todo: 没能查出用户名和昵称？

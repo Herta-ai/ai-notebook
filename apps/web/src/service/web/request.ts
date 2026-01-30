@@ -2,6 +2,7 @@ import { createAlova } from 'alova'
 import VueHook from 'alova/vue'
 import adapterFetch from 'alova/fetch'
 import { getToken } from '@/store/modules/user/shared'
+import { useStore } from '@/hooks'
 
 export const request = createAlova({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -10,6 +11,7 @@ export const request = createAlova({
   requestAdapter: adapterFetch(),
   responded: {
     async onSuccess(response, method) {
+      const { resetStore } = useStore('user')
       if (method.config.meta?.responseType && method.config.meta?.responseType !== 'json') {
         return await response[method.config.meta.responseType]()
       }
@@ -19,6 +21,9 @@ export const request = createAlova({
       }
       if (!method.config.meta?.unErrMsg) {
         window.$message?.error(res.message)
+      }
+      if (res.code === 401) {
+        return resetStore()
       }
       return Promise.reject(res.message)
     },

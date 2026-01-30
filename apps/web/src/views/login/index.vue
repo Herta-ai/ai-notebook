@@ -75,7 +75,7 @@ async function handleLogin() {
 async function handleRegister() {
   try {
     await validateRegister()
-    await register(loginModel.username, loginModel.password)
+    await register(registerModel.username, registerModel.password)
   }
   catch {}
 }
