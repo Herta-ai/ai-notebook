@@ -96,15 +96,11 @@ export const userController = new Elysia({ prefix: '/user' })
 
   // Get Profile
   .get('/profile', async ({ db, user }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const userProfile = await userService.findById(db, user.id)
     if (!userProfile)
       return error('Unauthorized', 401)
 
     const { password: _, ...safeUser } = userProfile as any
-    // @todo: 没能查出用户名和昵称？
     return success(safeUser)
   }, {
     isAuth: true,
