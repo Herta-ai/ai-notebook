@@ -1,16 +1,17 @@
 import { Elysia } from 'elysia'
-import { LoginDTO, RefreshTokenDTO, UpdateUserDTO, UserDTO } from '../models/user.model'
+import { LoginDTO, UpdateUserDTO, UserDTO } from '../models/user.model'
 import * as userService from '../services/user.service'
 import { error, success } from '../utils/response'
 import { authPlugin } from '../middlewares/auth'
 import { surreal } from '../utils/db'
+import { AUTH_CONFIG, getExpInSeconds } from '../config/auth.config'
 
 export const userController = new Elysia({ prefix: '/user' })
   .use(surreal)
   .use(authPlugin)
 
   // Register
-  .post('/register', async ({ db, jwt, refreshJwt, body }) => {
+  .post('/register', async ({ db, jwt, refreshJwt, body, cookie: { accessToken, refreshToken } }) => {
     const { username, password, nickname } = body
 
     // Check if user exists
@@ -33,18 +34,33 @@ export const userController = new Elysia({ prefix: '/user' })
       id: user.id.id.toString(),
       username: user.username,
     })
-    const refreshToken = await refreshJwt.sign({
+    const rToken = await refreshJwt.sign({
       id: user.id.id.toString(),
       username: user.username,
     })
 
-    return success({ token, refreshToken }, 'User registered successfully')
+    accessToken.set({
+      value: token,
+      httpOnly: true,
+      path: '/',
+      maxAge: getExpInSeconds(AUTH_CONFIG.jwt.exp),
+    })
+
+    refreshToken.set({
+      value: rToken,
+      httpOnly: true,
+      path: '/',
+      maxAge: getExpInSeconds(AUTH_CONFIG.refreshJwt.exp),
+    })
+
+    const { password: _, ...safeUser } = user as any
+    return success(safeUser, 'User registered successfully')
   }, {
     body: UserDTO,
   })
 
   // Login
-  .post('/login', async ({ db, jwt, refreshJwt, body }) => {
+  .post('/login', async ({ db, jwt, refreshJwt, body, cookie: { accessToken, refreshToken } }) => {
     const { username, password } = body
 
     const user = await userService.findByUsername(db, username)
@@ -61,38 +77,32 @@ export const userController = new Elysia({ prefix: '/user' })
       id: user.id.id.toString(),
       username: user.username,
     })
-    const refreshToken = await refreshJwt.sign({
+    const rToken = await refreshJwt.sign({
       id: user.id.id.toString(),
       username: user.username,
     })
 
-    return success({ token, refreshToken }, 'Login successful')
+    accessToken.set({
+      value: token,
+      httpOnly: true,
+      path: '/',
+      maxAge: getExpInSeconds(AUTH_CONFIG.jwt.exp),
+    })
+
+    refreshToken.set({
+      value: rToken,
+      httpOnly: true,
+      path: '/',
+      maxAge: getExpInSeconds(AUTH_CONFIG.refreshJwt.exp),
+    })
+
+    const { password: _, ...safeUser } = user as any
+    return success(safeUser, 'Login successful')
   }, {
     body: LoginDTO,
   })
 
-  // Refresh Token
-  .post('/refresh', async ({ jwt, refreshJwt, body }) => {
-    const { refreshToken } = body
-    const payload = await refreshJwt.verify(refreshToken)
-
-    if (!payload) {
-      return error('Invalid refresh token', 401)
-    }
-
-    const token = await jwt.sign({
-      id: payload.id as string,
-      username: payload.username as string,
-    })
-    const newRefreshToken = await refreshJwt.sign({
-      id: payload.id as string,
-      username: payload.username as string,
-    })
-
-    return success({ token, refreshToken: newRefreshToken }, 'Token refreshed successfully')
-  }, {
-    body: RefreshTokenDTO,
-  })
+// Refresh token endpoint removed
 
   // Get Profile
   .get('/profile', async ({ db, user }) => {

@@ -1,36 +1,54 @@
 import { Elysia } from 'elysia'
 import { jwt } from '@elysiajs/jwt'
 import { error } from '../utils/response'
+import { AUTH_CONFIG, getExpInSeconds } from '../config/auth.config'
 
 export const authPlugin = new Elysia({ name: 'auth-plugin' })
   .use(
     jwt({
       name: 'jwt',
-      secret: process.env.JWT_SECRET || 'supersecretkey',
-      exp: process.env.JWT_EXPIRES_IN || '7d',
+      secret: AUTH_CONFIG.jwt.secret,
+      exp: AUTH_CONFIG.jwt.exp,
     }),
   )
   .use(
     jwt({
       name: 'refreshJwt',
-      secret: process.env.JWT_REFRESH_SECRET || 'supersecretrefreshkey',
-      exp: process.env.JWT_REFRESH_EXPIRES_IN || '14d',
+      secret: AUTH_CONFIG.refreshJwt.secret,
+      exp: AUTH_CONFIG.refreshJwt.exp,
     }),
   )
-  .derive({ as: 'global' }, async ({ jwt, headers }) => {
-    const auth = headers.authorization
-    if (!auth || !auth.startsWith('Bearer ')) {
-      return { user: { id: '', username: '' } }
+  .derive({ as: 'global' }, async ({ jwt, refreshJwt, cookie: { accessToken, refreshToken } }) => {
+    // 1. Try verify access token
+    if (accessToken.value) {
+      const profile = await jwt.verify(accessToken.value as string)
+      if (profile) {
+        return { user: profile as { id: string, username: string } }
+      }
     }
 
-    const token = auth.slice(7)
-    const profile = await jwt.verify(token)
+    // 2. If access token invalid, try refresh token
+    if (refreshToken.value) {
+      const payload = await refreshJwt.verify(refreshToken.value as string)
+      if (payload) {
+        // Refresh access token
+        const newAccessToken = await jwt.sign({
+          id: payload.id as string,
+          username: payload.username as string,
+        })
 
-    if (!profile) {
-      return { user: { id: '', username: '' } }
+        accessToken.set({
+          value: newAccessToken,
+          httpOnly: true,
+          path: '/',
+          maxAge: getExpInSeconds(AUTH_CONFIG.jwt.exp),
+        })
+
+        return { user: { id: payload.id as string, username: payload.username as string } }
+      }
     }
 
-    return { user: profile as { id: string, username: string } }
+    return { user: null }
   })
   .macro({
     isAuth(enabled: boolean) {

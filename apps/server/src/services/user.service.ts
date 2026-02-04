@@ -1,4 +1,4 @@
-import { RecordId, StringRecordId, Table } from 'surrealdb'
+import { RecordId, Table } from 'surrealdb'
 import type { User } from '../models/user.model'
 import type { Surreal } from 'surrealdb'
 
