@@ -1,4 +1,4 @@
-import { RecordId, Table } from 'surrealdb'
+import { StringRecordId, Table } from 'surrealdb'
 import type { User } from '../models/user.model'
 import type { Surreal } from 'surrealdb'
 
@@ -23,14 +23,14 @@ export async function createUser(db: Surreal, user: Omit<User, 'id'>) {
 }
 
 export async function findById(db: Surreal, id: string) {
-  const result = await db.select(new RecordId(userTable, id))
+  const result = await db.select(new StringRecordId(id))
   if (Array.isArray(result))
     return result[0]
   return result
 }
 
 export async function updateUser(db: Surreal, id: string, data: Partial<User>) {
-  const updated = await db.update(new RecordId(userTable, id)).merge(data)
+  const updated = await db.update(new StringRecordId(id)).merge(data)
   console.log('update', updated)
   if (Array.isArray(updated))
     return updated[0]

@@ -31,11 +31,11 @@ export const userController = new Elysia({ prefix: '/user' })
 
     // Remove password from response
     const token = await jwt.sign({
-      id: user.id.id.toString(),
+      id: user.id.toString(),
       username: user.username,
     })
     const rToken = await refreshJwt.sign({
-      id: user.id.id.toString(),
+      id: user.id.toString(),
       username: user.username,
     })
 
@@ -74,11 +74,11 @@ export const userController = new Elysia({ prefix: '/user' })
     }
 
     const token = await jwt.sign({
-      id: user.id.id.toString(),
+      id: user.id.toString(),
       username: user.username,
     })
     const rToken = await refreshJwt.sign({
-      id: user.id.id.toString(),
+      id: user.id.toString(),
       username: user.username,
     })
 

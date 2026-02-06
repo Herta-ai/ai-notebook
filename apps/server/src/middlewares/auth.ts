@@ -48,7 +48,7 @@ export const authPlugin = new Elysia({ name: 'auth-plugin' })
       }
     }
 
-    return { user: null }
+    return { user: { id: '', username: '' } }
   })
   .macro({
     isAuth(enabled: boolean) {

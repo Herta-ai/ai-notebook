@@ -38,9 +38,9 @@ export const CreateProviderDTO = t.Object({
 export const UpdateProviderDTO = t.Partial(CreateProviderDTO)
 
 export const CreateModelDTO = t.Object({
-  providerId: t.String(),
-  modelId: t.String(),
-  ability: t.Array(t.String(), { minItems: 1 }),
+  providerId: t.String({ error: 'providerId 不能为空', minLength: 1 }),
+  modelId: t.String({ error: 'modelId 不能为空', minLength: 1 }),
+  ability: t.Array(t.String(), { minItems: 1, error: 'ability 最少包含一个元素' }),
   temperature: t.Optional(t.Number({ default: 0.85 })),
   topP: t.Optional(t.Number({ default: 0.95 })),
   stream: t.Optional(t.Boolean({ default: true })),

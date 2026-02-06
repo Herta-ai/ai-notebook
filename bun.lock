@@ -43,9 +43,9 @@
         "@elysiajs/cors": "^1.4.1",
         "@elysiajs/jwt": "^1.4.0",
         "@elysiajs/swagger": "^1.3.1",
-        "@surrealdb/node": "^2.4.0",
+        "@surrealdb/node": "^2.6.0",
         "elysia": "latest",
-        "surrealdb": "^2.0.0-alpha.16",
+        "surrealdb": "^2.0.0-alpha.17",
       },
       "devDependencies": {
         "bun-types": "latest",
@@ -535,7 +535,7 @@
 
     "@surrealdb/cbor": ["@surrealdb/cbor@2.0.0-alpha.4", "https://registry.npmmirror.com/@surrealdb/cbor/-/cbor-2.0.0-alpha.4.tgz", {}, "sha512-l/hNZ3ZCOJq8rzwx1y5ZV/8b2bYCWdhGqRVY33Pu50NAHyAW5qLsMn3ZBkZow77mAKwNCsbDsRGnyYEuU95mjw=="],
 
-    "@surrealdb/node": ["@surrealdb/node@2.4.0", "https://registry.npmmirror.com/@surrealdb/node/-/node-2.4.0.tgz", { "peerDependencies": { "surrealdb": "^2.0.0-0" } }, "sha512-or/ezuVe5AtD6mMYEeDyjvmw2QD3gK5Rumq+2EVnLKfg23TP1tFOMU0pYBP2Cihr+SG6apxmtNO8vxk717Ab8w=="],
+    "@surrealdb/node": ["@surrealdb/node@2.6.0", "https://mirrors.tencent.com/npm/@surrealdb/node/-/node-2.6.0.tgz", { "peerDependencies": { "surrealdb": "^2.0.0-0" } }, "sha512-xfbPulS1iqnG6rOlpI1Zr8Duoq6ctnuA6MkDc2FNuAHcoX8Xo6pnoLlH1FfHcndTvztK0rgxR/WoZUo8AM4gjQ=="],
 
     "@tauri-apps/api": ["@tauri-apps/api@2.9.1", "https://registry.npmmirror.com/@tauri-apps/api/-/api-2.9.1.tgz", {}, "sha512-IGlhP6EivjXHepbBic618GOmiWe4URJiIeZFlB7x3czM0yDHHYviH1Xvoiv4FefdkQtn6v7TuwWCRfOGdnVUGw=="],
 
@@ -817,7 +817,7 @@
 
     "builtin-modules": ["builtin-modules@5.0.0", "https://registry.npmmirror.com/builtin-modules/-/builtin-modules-5.0.0.tgz", {}, "sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg=="],
 
-    "bun-types": ["bun-types@1.3.7", "https://registry.npmmirror.com/bun-types/-/bun-types-1.3.7.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-qyschsA03Qz+gou+apt6HNl6HnI+sJJLL4wLDke4iugsE6584CMupOtTY1n+2YC9nGVrEKUlTs99jjRLKgWnjQ=="],
+    "bun-types": ["bun-types@1.3.8", "https://mirrors.tencent.com/npm/bun-types/-/bun-types-1.3.8.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-fL99nxdOWvV4LqjmC+8Q9kW3M4QTtTR1eePs94v5ctGqU8OeceWrSUaRw3JYb7tU3FkMIAjkueehrHPPPGKi5Q=="],
 
     "bundle-name": ["bundle-name@4.1.0", "https://registry.npmmirror.com/bundle-name/-/bundle-name-4.1.0.tgz", { "dependencies": { "run-applescript": "^7.0.0" } }, "sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q=="],
 
@@ -1567,7 +1567,7 @@
 
     "supports-color": ["supports-color@7.2.0", "https://registry.npmmirror.com/supports-color/-/supports-color-7.2.0.tgz", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
-    "surrealdb": ["surrealdb@2.0.0-alpha.16", "https://registry.npmmirror.com/surrealdb/-/surrealdb-2.0.0-alpha.16.tgz", { "dependencies": { "@surrealdb/cbor": "2.0.0-alpha.4", "uuidv7": "^1.0.1" }, "peerDependencies": { "tslib": "^2.6.3", "typescript": "^5.0.0" } }, "sha512-voDy4KvfURHjQxvbSJ6qsAFGVLBsD2NlJhBD1s6JLjddWKeArtER9UBdvv9wfr7puoEsV2EfOJl9Kayic1tgMQ=="],
+    "surrealdb": ["surrealdb@2.0.0-alpha.17", "https://mirrors.tencent.com/npm/surrealdb/-/surrealdb-2.0.0-alpha.17.tgz", { "dependencies": { "@surrealdb/cbor": "2.0.0-alpha.4", "uuidv7": "^1.0.1" }, "peerDependencies": { "tslib": "^2.6.3", "typescript": "^5.0.0" } }, "sha512-RraGbbrIesKkI6Oz8zHPhYpHvZyYCD7653bVUannqRc3sbs7Ihv5Gpoq2U2HIisjCn6RCO6UlDk3aLHtxqW8SA=="],
 
     "synckit": ["synckit@0.11.12", "https://registry.npmmirror.com/synckit/-/synckit-0.11.12.tgz", { "dependencies": { "@pkgr/core": "^0.2.9" } }, "sha512-Bh7QjT8/SuKUIfObSXNHNSK6WHo6J1tHCqJsuaFDP7gP0fkzSfTxI8y85JrppZ0h8l0maIgc2tfuZQ6/t3GtnQ=="],
 
@@ -1784,6 +1784,8 @@
     "@rolldown/binding-wasm32-wasi/@napi-rs/wasm-runtime": ["@napi-rs/wasm-runtime@1.1.1", "https://registry.npmmirror.com/@napi-rs/wasm-runtime/-/wasm-runtime-1.1.1.tgz", { "dependencies": { "@emnapi/core": "^1.7.1", "@emnapi/runtime": "^1.7.1", "@tybys/wasm-util": "^0.10.1" } }, "sha512-p64ah1M1ld8xjWv3qbvFwHiFVWrq1yFvV4f7w+mzaqiR4IlSgkqhcRdHwsGgomwzBH51sRY4NEowLxnaBjcW/A=="],
 
     "@scalar/themes/@scalar/types": ["@scalar/types@0.1.7", "https://registry.npmmirror.com/@scalar/types/-/types-0.1.7.tgz", { "dependencies": { "@scalar/openapi-types": "0.2.0", "@unhead/schema": "^1.11.11", "nanoid": "^5.1.5", "type-fest": "^4.20.0", "zod": "^3.23.8" } }, "sha512-irIDYzTQG2KLvFbuTI8k2Pz/R4JR+zUUSykVTbEMatkzMmVFnn1VzNSMlODbadycwZunbnL2tA27AXed9URVjw=="],
+
+    "@types/bun/bun-types": ["bun-types@1.3.7", "https://registry.npmmirror.com/bun-types/-/bun-types-1.3.7.tgz", { "dependencies": { "@types/node": "*" } }, "sha512-qyschsA03Qz+gou+apt6HNl6HnI+sJJLL4wLDke4iugsE6584CMupOtTY1n+2YC9nGVrEKUlTs99jjRLKgWnjQ=="],
 
     "@typescript-eslint/eslint-plugin/ignore": ["ignore@7.0.5", "https://registry.npmmirror.com/ignore/-/ignore-7.0.5.tgz", {}, "sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg=="],
 

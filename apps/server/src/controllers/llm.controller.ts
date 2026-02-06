@@ -12,9 +12,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
 // Providers Endpoints
 
   .post('/providers', async ({ db, user, body }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const provider = await llmService.createProvider(db, user.id, body)
     if (!provider)
       return error('Failed to create provider', 500)
@@ -26,9 +23,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .get('/providers', async ({ db, user }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const providers = await llmService.getProvidersByUser(db, user.id)
     return success(providers)
   }, {
@@ -36,9 +30,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .put('/providers/:id', async ({ db, user, params: { id }, body }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const updated = await llmService.updateProvider(db, id, user.id, body)
     if (!updated)
       return error('Failed to update provider or not found', 404)
@@ -50,9 +41,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .delete('/providers/:id', async ({ db, user, params: { id } }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const deleted = await llmService.deleteProvider(db, id, user.id)
     if (!deleted)
       return error('Failed to delete provider or not found', 404)
@@ -65,9 +53,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
 // Models Endpoints
 
   .post('/models', async ({ db, user, body }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     try {
       const model = await llmService.createModel(db, user.id, body)
       if (!model)
@@ -83,9 +68,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .get('/models', async ({ db, user, query }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const { providerId } = query
     if (!providerId)
       return error('Provider ID is required', 400)
@@ -108,9 +90,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .put('/models/:id', async ({ db, user, params: { id }, body }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const updated = await llmService.updateModel(db, id, user.id, body)
     if (!updated)
       return error('Failed to update model or not found', 404)
@@ -122,9 +101,6 @@ export const llmController = new Elysia({ prefix: '/llm' })
   })
 
   .delete('/models/:id', async ({ db, user, params: { id } }) => {
-    if (!user)
-      return error('Unauthorized', 401)
-
     const deleted = await llmService.deleteModel(db, id, user.id)
     if (!deleted)
       return error('Failed to delete model or not found', 404)
